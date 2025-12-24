@@ -1,0 +1,24 @@
+services:
+  host-app:
+    build:
+      context: .
+      dockerfile: Docker/Dockerfile
+    ports:
+      - "3022:3000"
+    volumes:
+      - type: bind
+        source: .
+        target: /usr/src/app
+      - type: volume
+        source: host-app-node_modules
+        target: /usr/src/app/host-app/node_modules
+    networks:
+      - microfrontends
+    command: ["npm", "run", "dev"]
+volumes:
+  host-app-node_modules:
+    driver: local
+    name: host-app-node_modules
+networks:
+  microfrontends:
+    external: true
