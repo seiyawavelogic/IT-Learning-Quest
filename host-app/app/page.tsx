@@ -71,6 +71,9 @@ export default function Home() {
       <nav>
         <Link href="/about">私たちについて</Link>
       </nav>
+      <nav>
+        <Link href="/blog/1">ブログ_n</Link>
+      </nav>
     </main>
   )
 }
