@@ -5,7 +5,7 @@
 <br>
 ## How to use?
 1. このリポジトリをクローン<br>
-2. dockerをインストール※済みであればスキップ可能<br>
+2. dockerをインストール<br>※済みであればスキップ可能<br>
 3. ```docker compose up -d```によってプロジェクトが立ち上がる<br>
 
 ## Used IT Skills
