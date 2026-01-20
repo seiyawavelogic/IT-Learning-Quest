@@ -10,10 +10,10 @@
 <br>
 ## what`s use IT skill?
 <br>
-| region | skill |
-| ---- | ---- |
-| Frontend | next.js |
-| Backend | next.js |
+| region | skill | 
+| ---- | ---- | 
+| Frontend | next.js | 
+| Backend | next.js | 
 <br>
 ## Can make contribute?
 可能です！<br>
