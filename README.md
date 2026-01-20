@@ -8,13 +8,11 @@
 - 2. dockerをインストール※済みであればスキップ可能<br>
 - 3. ```docker compose up -d```によってプロジェクトが立ち上がる<br>
 
-## what`s use IT skill?
-<br>
+## Used IT Skills
 | region | skill | 
 | ---- | ---- | 
 | Frontend | next.js | 
 | Backend | next.js | 
-<br>
 ## Can make contribute?
 可能です！<br>
 Issueを作成してから実装お願いします。<br>
