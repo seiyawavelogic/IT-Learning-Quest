@@ -9,6 +9,8 @@
 3. 各種問題の参照、問題に対する回答
 4. 自身の正解した問題や間違った問題、起動した時間などを参照できる
 ## ページ遷移に関して
+<img width="520" height="141" alt="スクリーンショット 2026-01-20 23 41 33" src="https://github.com/user-attachments/assets/5dbaa385-a82a-43ae-8c59-bcd52a593ae4" />
+## DB情報に関して
 ## How to use?
 1. このリポジトリをクローン<br>
 2. dockerをインストール<br>※済みであればスキップ可能<br>
@@ -19,7 +21,8 @@
 | ---- | ---- | 
 | Frontend | next.js | 
 | Backend | next.js | 
-| CI/CD | github action | 
+| DB | mysql |
+| CI/CD | github action |  
 ## Can make contribute?
 可能です！<br>
 Issueを作成してから実装お願いします。<br>
