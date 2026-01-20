@@ -13,6 +13,7 @@
 | ---- | ---- | 
 | Frontend | next.js | 
 | Backend | next.js | 
+| CI/CD | github action | 
 ## Can make contribute?
 可能です！<br>
 Issueを作成してから実装お願いします。<br>
