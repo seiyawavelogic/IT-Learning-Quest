@@ -13,6 +13,7 @@
 ## DB情報に関して
 <img width="768" height="216" alt="スクリーンショット 2026-01-20 23 55 50" src="https://github.com/user-attachments/assets/0bbc7df6-ee42-494b-874b-931e69acea17" /><br>
 中間テーブルを作成することでデータの取り出しを行いやすくしています<br>
+## 実際の画面に関して
 ## How to use?
 1. このリポジトリをクローン<br>
 2. dockerをインストール<br>※済みであればスキップ可能<br>
