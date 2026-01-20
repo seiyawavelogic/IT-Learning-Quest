@@ -9,7 +9,7 @@
 3. 各種問題の参照、問題に対する回答
 4. 自身の正解した問題や間違った問題、起動した時間などを参照できる
 ## ページ遷移に関して
-<img width="520" height="141" alt="スクリーンショット 2026-01-20 23 41 33" src="https://github.com/user-attachments/assets/5dbaa385-a82a-43ae-8c59-bcd52a593ae4" />
+<img width="520" height="141" alt="スクリーンショット 2026-01-20 23 41 33" src="https://github.com/user-attachments/assets/5dbaa385-a82a-43ae-8c59-bcd52a593ae4" /><br>
 ## DB情報に関して
 ## How to use?
 1. このリポジトリをクローン<br>
