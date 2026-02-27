@@ -1,10 +1,15 @@
 # Dockerfile
-FROM node:20.11.0
+FROM node:20-alpine
 
-# Create app directory
-WORKDIR /usr/src/app/host-app
+WORKDIR /app
 
-# Copy package.json package-lock.json
-COPY ./host-app/package*.json .
+COPY package*.json ./
+RUN npm install
 
-RUN ["npm", "install"]
+COPY . .
+
+RUN npx prisma generate
+
+EXPOSE 3000
+
+CMD ["npm", "run", "dev"]

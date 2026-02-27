@@ -1,24 +1,51 @@
+version: '3.8'
+
 services:
-  host-app:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: it-learning-quest-app
     ports:
       - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      - NEXTAUTH_URL=http://localhost:3000
     volumes:
-      - type: bind
-        source: .
-        target: /usr/src/app
-      - type: volume
-        source: host-app-node_modules
-        target: /usr/src/app/host-app/node_modules
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      db:
+        condition: service_healthy
     networks:
-      - microfrontends
-    command: ["npm", "run", "dev"]
+      - it-learning-network
+    command: npm run dev
+
+  db:
+    image: postgres:15-alpine
+    container_name: it-learning-quest-db
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+  # -d ${DB_NAME} を追加して、作成したDBを指定する
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - it-learning-network
+
 volumes:
-  host-app-node_modules:
-    driver: local
-    name: host-app-node_modules
+  postgres_data:
+
 networks:
-  microfrontends:
-    external: true
+  it-learning-network:
+    driver: bridge
