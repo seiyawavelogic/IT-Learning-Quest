@@ -1,10 +1,18 @@
-# Dockerfile
-FROM node:20.11.0
+FROM node:20-alpine
 
-# Create app directory
-WORKDIR /usr/src/app/host-app
+# 手順: Prismaが動作するために必要なOpenSSLをインストール
+RUN apk add --no-cache openssl
 
-# Copy package.json package-lock.json
-COPY ./host-app/package*.json .
+WORKDIR /app
 
-RUN ["npm", "install"]
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+
+# ここでエラーが出ていたので、OSの準備ができてから実行
+RUN npx prisma generate
+
+EXPOSE 3000
+
+CMD ["npm", "run", "dev"]

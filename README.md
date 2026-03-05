@@ -1,34 +1,70 @@
-# IT-Learning-Quest
-## whats's this project? 
-このリポジトリは IT学習のクエスト形式で進める学習教材です。<br>
-学習の進捗管理や課題チャレンジを目的としています。<br>
-<br>
-## 機能要件
-1. ログイン、ログアウト機能<br>メールアドレス、パスワードをもとにログイン、ログアウトを行うことが可能です
-2. ルーティング<br>mainページより各種問題へのアクセス、自身の活動記録確認ページへアクセスが可能
-3. 各種問題の参照、問題に対する回答
-4. 自身の正解した問題や間違った問題、起動した時間などを参照できる
-## ページ遷移に関して
-<img width="520" height="141" alt="スクリーンショット 2026-01-20 23 41 33" src="https://github.com/user-attachments/assets/5dbaa385-a82a-43ae-8c59-bcd52a593ae4" /><br>
-## DB情報に関して
-<img width="768" height="216" alt="スクリーンショット 2026-01-20 23 55 50" src="https://github.com/user-attachments/assets/0bbc7df6-ee42-494b-874b-931e69acea17" /><br>
-中間テーブルを作成することでデータの取り出しを行いやすくしています<br>
-## 実際の画面に関して
-## How to use?
-1. このリポジトリをクローン<br>
-2. dockerをインストール<br>※済みであればスキップ可能<br>
-3. ```docker compose up -d```によってプロジェクトが立ち上がる<br>
+# IT-Learning-Quest (Next.js + Prisma + Docker)
 
-## Used IT Skills
-| region | skill | 
-| ---- | ---- | 
-| Frontend | next.js | 
-| Backend | next.js | 
-| DB | mysql |
-| CI/CD | github action |  
-## Can make contribute?
-可能です！<br>
-Issueを作成してから実装お願いします。<br>
-<br>
-## Who make this project?
-- seiyawavelogic
+このプロジェクトは、Dockerコンテナを利用したフルスタック開発環境です。
+Macローカルのプロセス競合を回避し、常にクリーンな状態で開発を開始できるように設計されています。
+
+---
+
+## 🚀 クイックスタート (開発開始の手順)
+
+### 1. ポート解放とコンテナ起動
+Mac側で3000番ポートが使われている場合を考慮し、掃除してから起動します。
+```bash
+# 既存のポート3000プロセスを終了（エラーは無視してOK）
+kill -9 $(lsof -t -i:3000) 2>/dev/null || true
+
+# ビルドしてバックグラウンドで起動
+docker-compose up -d --build
+
+
+
+App: http://localhost:3000 (ホットリロード対応)
+
+2. データベースのセットアップ
+コンテナが起動したら、Prismaを使用してDBテーブルを作成・同期します。
+
+Bash
+
+# DBマイグレーションと型生成
+docker-compose exec app npx prisma migrate dev --name init
+🛠 運用・管理コマンド
+📊 データベースをブラウザで操作 (Prisma Studio)
+SQLを書かずにデータを直接確認・編集できます。
+
+Bash
+
+docker-compose exec app npx prisma studio
+Studio: http://localhost:5555
+
+📝 ログの確認 (ホットリロードの監視)
+コードを変更して保存した際、正しくコンパイルされたか確認できます。
+
+Bash
+
+docker-compose logs -f app
+🧹 環境の完全クリーンアップ
+動作がおかしい、または一度全てリセットしたい場合。
+
+Bash
+
+docker-compose down --rmi all --volumes --remove-orphans
+📁 主要なディレクトリと役割
+src/app/: Next.js App Router (ページ、レイアウト)
+
+prisma/schema.prisma: データベースの設計図（テーブル定義）
+
+src/lib/prisma.ts: Prisma Client のインスタンス（DB接続用）
+
+Dockerfile: OpenSSL導入済みの実行環境設定
+
+
+--
+
+## 3. 次に提示すべきファイルパス (整合性確認用)
+
+READMEが整い、マイグレーションも成功したので、次は**「本物のデータ」**を扱いましょう。
+以下のファイルを Cursor で開いて中身を教えてください。
+
+* **`prisma/schema.prisma`** (現在定義されているモデルを確認)
+* **`src/app/page.tsx`** (DBからデータを取得する処理へ書き換え)
+
