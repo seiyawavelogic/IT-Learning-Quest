@@ -1,6 +1,9 @@
 # 開発環境用
 FROM node:20-alpine AS development
 
+# OpenSSL をインストール（Prisma に必要）
+RUN apk add --no-cache openssl
+
 WORKDIR /app
 
 COPY package*.json ./
