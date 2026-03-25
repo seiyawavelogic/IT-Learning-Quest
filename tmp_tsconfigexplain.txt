@@ -1,0 +1,70 @@
+削除予定
+
+---
+compilerOptions
+ライブラリ設定
+"lib": ["dom", "dom.iterable", "esnext"]
+TypeScript がどの型定義を使えるかを指定します。
+- dom → document や window などブラウザのAPIの型
+- dom.iterable → DOM要素をfor...ofで回せるようにする型
+- esnext → 最新のJavaScript機能の型
+
+---
+ファイル関連
+
+"allowJs": true
+.js ファイルも TypeScript プロジェクト内に混在できるようにします。
+
+"skipLibCheck": true
+node_modules 内の型定義ファイルの型チェックをスキップします。ビルドを速くするための設定です。
+
+---
+ビルド関連
+
+"noEmit": true
+TypeScript が .js ファイルを出力しないようにします。Next.js 側がビルドを担うので不要です。
+
+"incremental": true
+前回のビルド結果をキャッシュして、次回のビルドを速くします。
+
+---
+モジュール関連
+
+"module": "esnext"
+出力するモジュール形式を指定します。esnext は import/export 構文をそのまま使います。
+
+"moduleResolution": "bundler"
+モジュールの解決方法を指定します。bundler はNext.jsやViteなどのバンドラーに合わせた最新の設定です。
+
+"resolveJsonModule": true
+.json ファイルを import できるようにします。
+
+"isolatedModules": true
+各ファイルを独立したモジュールとして扱います。Next.js のSWCコンパイラに必要な設定です。
+
+"esModuleInterop": true
+CommonJSモジュール（require形式）を import 文で読み込めるようにします。
+
+---
+React / Next.js 関連
+
+"jsx": "preserve"
+JSXをそのまま残してNext.js側に変換を任せます。
+
+"strict": true
+厳格な型チェックをまとめて有効にします（null チェック漏れや暗黙の any を検出するなど）。
+
+"plugins": [{ "name": "next" }]
+VSCode上でNext.js専用の補完・型チェックを有効にするプラグインです。
+
+"paths": { "@/*": ["./src/*"] }
+@/components/Button のように @/ で始まるパスを src/ に解決するエイリアスです。
+
+---
+ファイル対象の指定
+
+"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"]
+TypeScript の対象にするファイルを指定しています。
+
+"exclude": ["node_modules"]
+node_modules は型チェック対象から除外します。

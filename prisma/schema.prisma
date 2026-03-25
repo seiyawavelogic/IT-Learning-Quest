@@ -1,91 +1,16 @@
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  password  String
-  level     Int      @default(1)
-  exp       Int      @default(0)
-  streak    Int      @default(0)
-  lastStudyDate DateTime?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  progress  UserProgress[]
-  history   LearningHistory[]
-  badges    UserBadge[]
-}
-
-model Term {
-  id        Int      @id @default(autoincrement())
-  term      String   @unique
-  shortDesc String
-  fullDesc  String
-  category  String
-  tags      String[]
-
-  progress  UserProgress[]
-}
-
-model UserProgress {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  termId    Int
-  status    String   @default("unseen")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  term   Term   @relation(fields: [termId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, termId])
-}
-
-model QuizQuestion {
-  id          Int      @id @default(autoincrement())
-  question    String
-  options     String[]
-  answerIndex Int
-  category    String
-}
-
-model LearningHistory {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  activity  String
-  expGained Int
-  createdAt DateTime @default(now())
-
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model Badge {
-  id         Int         @id @default(autoincrement())
-  name       String      @unique
-  emoji      String
-  color      String
-  condition  String
-  description String
-
-  userBadges UserBadge[]
-}
-
-model UserBadge {
-  id       Int      @id @default(autoincrement())
-  userId   Int
-  badgeId  Int
-  earnedAt DateTime @default(now())
-
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  badge  Badge  @relation(fields: [badgeId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, badgeId])
+    id        Int      @id @default(autoincrement())
+    email     String   @unique
+    name      String?
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }

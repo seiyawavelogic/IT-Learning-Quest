@@ -1,51 +1,39 @@
-version: '3.8'
-
 services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
-    container_name: it-learning-quest-app
+      dockerfile: docker/Dockerfile
+      target: development
     ports:
       - "3000:3000"
-    environment:
-      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}
-      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
-      - NEXTAUTH_URL=http://localhost:3000
     volumes:
       - .:/app
       - /app/node_modules
       - /app/.next
+    env_file:
+      - .env
     depends_on:
       db:
         condition: service_healthy
-    networks:
-      - it-learning-network
-    command: npm run dev
+    command: sh -c "npx prisma db push && npm run dev"
+    restart: unless-stopped
 
   db:
-    image: postgres:15-alpine
-    container_name: it-learning-quest-db
-    environment:
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_NAME}
+    image: postgres:16-alpine
     ports:
       - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: itlearningquest
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-  # -d ${DB_NAME} を追加して、作成したDBを指定する
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
-      interval: 10s
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
       timeout: 5s
       retries: 5
-    networks:
-      - it-learning-network
+    restart: unless-stopped
 
 volumes:
   postgres_data:
-
-networks:
-  it-learning-network:
-    driver: bridge

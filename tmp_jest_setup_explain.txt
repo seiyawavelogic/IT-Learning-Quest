@@ -1,0 +1,45 @@
+@testing-library/jest-dom とは
+
+@testing-library/jest-dom は Jest のマッチャー（expect().toBe() などの検証関数）をDOM操作専用に拡張するライブラリです。
+
+---
+何が追加されるか
+
+標準の Jest だけだとこう書くしかありません：
+// 標準 Jest のみ
+expect(element.textContent).toBe('送信')
+expect(element.disabled).toBe(true)
+
+@testing-library/jest-dom を入れるとこう書けます：
+// jest-dom の拡張マッチャー
+expect(button).toHaveTextContent('送信')
+expect(button).toBeDisabled()
+expect(input).toBeInTheDocument()
+expect(input).toHaveValue('hello')
+
+読みやすく、何をテストしているか一目でわかるようになります。
+
+---
+なぜ jest.config.ts で読み込むのか
+
+// jest.config.ts
+setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+
+setupFilesAfterEnv に指定することで、全テストファイルの実行前に自動で読み込まれます。
+
+つまり各テストファイルで毎回 import '@testing-library/jest-dom' と書く必要がなくなります。
+
+---
+まとめ
+
+┌────────────────────┬──────────────────────────────────────┐
+│                    │                 内容                 │
+├────────────────────┼──────────────────────────────────────┤
+│ 役割               │ JestにDOM専用の検証関数を追加する    │
+├────────────────────┼──────────────────────────────────────┤
+│ メリット           │ テストコードが読みやすくなる         │
+├────────────────────┼──────────────────────────────────────┤
+│ 読み込みタイミング │ 全テストファイルの実行前に自動で適用 │
+└────────────────────┴──────────────────────────────────────┘
+
+---
